@@ -1,0 +1,174 @@
+/* ==========================================================================
+   Analyzer workspace, analysis output, rewrite + change report
+   ========================================================================== */
+
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); align-items: start; }
+.pane { display: flex; flex-direction: column; }
+.pane-actions { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+
+/* ---------------------------- Indicator gauge ---------------------------- */
+.gauge { padding: 22px; border-radius: var(--r); background: var(--grad-cream); border: 1px solid var(--border); }
+.gauge .label {
+  font-size: 11.5px; font-weight: 600; letter-spacing: .09em;
+  text-transform: uppercase; color: var(--brown-warm);
+}
+.gauge .value { font-size: 25px; font-weight: 700; margin: 8px 0 14px; letter-spacing: -.02em; }
+.gauge-bar { display: flex; gap: 5px; }
+.gauge-bar i {
+  flex: 1; height: 9px; border-radius: 3px;
+  background: var(--beige); transition: background .3s var(--ease);
+}
+.gauge-bar i.on { background: var(--grad-brown); }
+.gauge-foot {
+  display: flex; flex-wrap: wrap; gap: 8px 18px;
+  margin-top: 14px; font-size: 12.5px; color: var(--text-2);
+}
+.gauge .disclaimer-line {
+  margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border);
+  font-size: 12.5px; color: var(--text-2);
+}
+
+/* ---------------------------- Result blocks ---------------------------- */
+.result-stack { display: flex; flex-direction: column; gap: 18px; }
+
+.block { border: 1px solid var(--border); border-radius: var(--r); padding: 18px 20px; background: var(--white); }
+.block > h4 {
+  font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--text-2); margin-bottom: 14px;
+}
+.block p.assessment { font-size: 14.5px; line-height: 1.7; }
+
+/* Metric rows (writing pattern / readability) */
+.metrics { display: grid; gap: 12px; }
+.metric { display: grid; grid-template-columns: 150px 1fr auto; gap: 14px; align-items: center; font-size: 13.5px; }
+.metric .m-name { color: var(--text-2); }
+.metric .m-track { height: 7px; border-radius: 999px; background: var(--beige); overflow: hidden; }
+.metric .m-fill { display: block; height: 100%; border-radius: 999px; background: var(--grad-brown); transition: width .5s var(--ease); }
+.metric .m-val { font-weight: 600; font-variant-numeric: tabular-nums; min-width: 72px; text-align: right; }
+
+/* Indicator cards */
+.indicator {
+  border: 1px solid var(--border); border-radius: var(--r-sm);
+  padding: 14px 16px; background: var(--bg); margin-bottom: 10px;
+  border-left: 3px solid var(--brown-light);
+}
+.indicator:last-child { margin-bottom: 0; }
+.indicator.sev-High { border-left-color: #A34A3C; }
+.indicator.sev-Moderate { border-left-color: var(--warn); }
+.indicator.sev-Low { border-left-color: var(--brown-light); }
+.indicator .i-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.indicator strong { font-size: 14px; font-weight: 600; }
+.indicator p { font-size: 13.5px; color: var(--text-2); margin-top: 7px; }
+
+/* Flagged passages */
+.passage {
+  border: 1px solid var(--border); border-radius: var(--r-sm);
+  padding: 15px 17px; background: var(--white); margin-bottom: 10px;
+}
+.passage:last-child { margin-bottom: 0; }
+.passage blockquote {
+  margin: 10px 0 12px; padding: 12px 15px;
+  background: var(--cream); border-left: 3px solid var(--brown-warm);
+  border-radius: 0 9px 9px 0;
+  font-size: 13.5px; line-height: 1.65; color: var(--brown-dark);
+}
+.passage .why { font-size: 13px; color: var(--text-2); }
+.passage .why b { color: var(--text); font-weight: 600; }
+
+/* ---------------------------- Before / after ---------------------------- */
+.ba-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); }
+.ba-col { display: flex; flex-direction: column; }
+.ba-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  margin-bottom: 12px;
+}
+.ba-head h4 { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--text-2); }
+.ba-text {
+  border: 1px solid var(--border); border-radius: var(--r);
+  padding: 18px 20px; background: var(--bg);
+  font-size: 14.5px; line-height: 1.75; white-space: pre-wrap;
+  max-height: 460px; overflow: auto;
+}
+.ba-col.after .ba-text { background: var(--grad-cream); }
+
+/* ---------------------------- Change summary ---------------------------- */
+.change-summary { display: grid; grid-template-columns: 210px 1fr; gap: 26px; align-items: center; }
+.change-total { text-align: center; padding: 18px; border-radius: var(--r); background: var(--grad-cream); border: 1px solid var(--border); }
+.change-total .n { font-size: 44px; font-weight: 700; line-height: 1; letter-spacing: -.03em; }
+.change-total .l { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--text-2); margin-top: 6px; }
+.change-total .split-n { font-size: 12.5px; color: var(--text-2); margin-top: 10px; }
+
+.type-bars { display: grid; gap: 10px; }
+.type-bar { display: grid; grid-template-columns: 200px 1fr 34px; gap: 14px; align-items: center; font-size: 13.5px; }
+.type-bar .t-name { color: var(--text-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.type-bar .t-track { height: 8px; border-radius: 999px; background: var(--beige); overflow: hidden; }
+.type-bar .t-fill { display: block; height: 100%; border-radius: 999px; background: var(--grad-brown); transition: width .5s var(--ease); }
+.type-bar .t-num { font-weight: 600; text-align: right; font-variant-numeric: tabular-nums; }
+
+/* ---------------------------- Change cards ---------------------------- */
+.change-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 14px; flex-wrap: wrap; }
+
+.change {
+  border: 1px solid var(--border); border-radius: var(--r-sm);
+  background: var(--white); margin-bottom: 10px; overflow: hidden;
+}
+.change:last-child { margin-bottom: 0; }
+.change-head {
+  width: 100%; display: flex; align-items: center; gap: 14px;
+  padding: 14px 16px; background: transparent; border: 0; cursor: pointer; text-align: left;
+  transition: background .18s var(--ease);
+}
+.change-head:hover { background: var(--cream); }
+.change-no {
+  font-size: 11px; font-weight: 700; letter-spacing: .05em; color: var(--brown-warm);
+  min-width: 46px;
+}
+.change-head .ch-title { flex: 1; min-width: 0; font-size: 13.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.change-head .chev { width: 16px; height: 16px; stroke: var(--text-2); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform .22s var(--ease); }
+.change.is-open .chev { transform: rotate(180deg); }
+.change-body { display: none; padding: 0 16px 16px; }
+.change.is-open .change-body { display: block; animation: fade .2s var(--ease); }
+.change-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+.change-pair > div { padding: 12px 14px; border-radius: 10px; font-size: 13.5px; line-height: 1.6; }
+.change-pair .from { background: var(--bg); border: 1px solid var(--border); }
+.change-pair .to { background: var(--cream); border: 1px solid var(--border); }
+.change-pair .tag { display: block; font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--text-2); margin-bottom: 6px; font-weight: 600; }
+.change-reason { font-size: 13px; color: var(--text-2); }
+
+/* ---------------------------- Tables ---------------------------- */
+.table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--r); }
+table.data { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 620px; }
+table.data th, table.data td { padding: 12px 15px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--border); }
+table.data thead th {
+  background: var(--cream); font-size: 11.5px; font-weight: 600;
+  letter-spacing: .06em; text-transform: uppercase; color: var(--text-2);
+  position: sticky; top: 0;
+}
+table.data tbody tr:last-child td { border-bottom: 0; }
+table.data tbody tr:hover { background: var(--bg); }
+table.data td.cell-ref { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px; color: var(--brown-warm); white-space: nowrap; }
+table.data td.col-before { color: var(--text-2); }
+table.data td.col-after { color: var(--text); background: rgba(243, 237, 230, .5); }
+
+.table-note { font-size: 12.5px; color: var(--text-2); margin-top: 12px; }
+
+/* ---------------------------- Downloads ---------------------------- */
+.download-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
+.download-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 13px 15px; border: 1px solid var(--border); border-radius: var(--r-sm);
+  background: var(--white); color: var(--text); text-decoration: none;
+  transition: border-color .18s var(--ease), background .18s var(--ease), transform .18s var(--ease);
+}
+.download-item:hover { border-color: var(--brown-light); background: var(--cream); transform: translateY(-1px); }
+.download-item svg { width: 17px; height: 17px; flex: 0 0 17px; stroke: var(--brown); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.download-item span { min-width: 0; }
+.download-item strong { display: block; font-size: 13.5px; font-weight: 500; }
+.download-item small { display: block; font-size: 11.5px; color: var(--text-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ---------------------------- Skeleton ---------------------------- */
+.skeleton { display: flex; flex-direction: column; gap: 12px; }
+.sk-line { height: 13px; border-radius: 6px; background: linear-gradient(90deg, var(--cream) 25%, var(--beige) 37%, var(--cream) 63%); background-size: 400% 100%; animation: shimmer 1.5s ease infinite; }
+.sk-line.w-60 { width: 60%; } .sk-line.w-80 { width: 80%; } .sk-line.w-40 { width: 40%; }
+.sk-block { height: 82px; border-radius: var(--r-sm); background: linear-gradient(90deg, var(--cream) 25%, var(--beige) 37%, var(--cream) 63%); background-size: 400% 100%; animation: shimmer 1.5s ease infinite; }
+@keyframes shimmer { 0% { background-position: 100% 50%; } 100% { background-position: 0 50%; } }

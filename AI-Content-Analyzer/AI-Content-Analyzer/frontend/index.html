@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Content Analyzer &amp; Natural Rewriter</title>
+<meta name="description" content="Analyze content for AI-related linguistic indicators and create a natural rewrite that preserves meaning.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/analyzer.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+<div class="atmosphere" aria-hidden="true">
+  <span class="glow glow-a"></span>
+  <span class="glow glow-b"></span>
+</div>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<div class="shell">
+
+  <!-- ============================ SIDEBAR ============================ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5V5a2 2 0 0 1 2-2h11l3 3v13.5a.5.5 0 0 1-.5.5H4.5a.5.5 0 0 1-.5-.5Z"/>
+          <path d="M8 9h8M8 13h8M8 17h5"/>
+        </svg>
+      </span>
+      <span class="brand-text">
+        <strong>AI Content Analyzer</strong>
+        <small>Natural Rewriter</small>
+      </span>
+    </div>
+
+    <nav class="nav" aria-label="Main navigation">
+      <button class="nav-item is-active" data-route="dashboard" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="10" width="7" height="11" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
+        <span>Dashboard</span>
+      </button>
+      <button class="nav-item" data-route="analyzer" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <span>Text Analyzer</span>
+      </button>
+      <button class="nav-item" data-route="documents" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9z"/><path d="M13 3v6h6"/></svg>
+        <span>Documents</span>
+      </button>
+      <button class="nav-item" data-route="rewrite" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+        <span>Natural Rewrite</span>
+      </button>
+      <button class="nav-item" data-route="reports" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 21h10a2 2 0 0 0 2-2V7l-4-4H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2Z"/><path d="M9 13h6M9 17h4"/></svg>
+        <span>Reports</span>
+      </button>
+      <button class="nav-item" data-route="history" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        <span>History</span>
+      </button>
+      <button class="nav-item" data-route="settings" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>
+        <span>Settings</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-foot">
+      <div class="status-chip" id="systemStatus">
+        <span class="dot dot-idle" id="statusDot"></span>
+        <span id="statusText">Checking engine…</span>
+      </div>
+      <p class="version">Version 1.0 · Phase 2</p>
+    </div>
+  </aside>
+
+  <div class="sidebar-scrim" id="sidebarScrim" hidden></div>
+
+  <!-- ============================ MAIN ============================ -->
+  <div class="main">
+
+    <header class="topbar">
+      <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="Open navigation" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+
+      <div class="topbar-title">
+        <h1 id="pageTitle">Dashboard</h1>
+        <p id="pageSubtitle">Analyze content, understand it, improve it naturally.</p>
+      </div>
+
+      <div class="topbar-actions">
+        <div class="search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <label class="sr-only" for="globalSearch">Search this session</label>
+          <input id="globalSearch" type="search" placeholder="Search session results…" autocomplete="off">
+        </div>
+        <button class="icon-btn" type="button" data-route="settings" aria-label="Settings">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82 2 2 0 1 1-2.83 2.83 1.65 1.65 0 0 0-2.82 1.18 2 2 0 1 1-4 0 1.65 1.65 0 0 0-2.82-1.18 2 2 0 1 1-2.83-2.83A1.65 1.65 0 0 0 3.09 14a2 2 0 1 1 0-4 1.65 1.65 0 0 0 1.18-2.82 2 2 0 1 1 2.83-2.83A1.65 1.65 0 0 0 10 3.09a2 2 0 1 1 4 0 1.65 1.65 0 0 0 2.82 1.18 2 2 0 1 1 2.83 2.83A1.65 1.65 0 0 0 20.91 10a2 2 0 1 1 0 4 1.65 1.65 0 0 0-1.51 1Z"/></svg>
+        </button>
+        <div class="avatar" title="Local session" aria-hidden="true">AC</div>
+      </div>
+    </header>
+
+    <main class="content" id="main">
+
+      <!-- ---------------------- DASHBOARD ---------------------- -->
+      <section class="page is-active" id="page-dashboard" aria-labelledby="pageTitle">
+        <div class="hero">
+          <div class="hero-copy">
+            <span class="eyebrow">Document intelligence</span>
+            <h2>Analyze your content.<br>Understand it. Improve it naturally.</h2>
+            <p>Analyze text and documents for AI-related linguistic indicators, then
+               create a natural rewrite while preserving the original meaning.</p>
+            <div class="hero-actions">
+              <button class="btn btn-primary" type="button" data-route="analyzer">Analyze Content</button>
+              <button class="btn btn-ghost" type="button" data-route="documents">Upload Document</button>
+            </div>
+          </div>
+          <div class="hero-flow" aria-hidden="true">
+            <div class="flow-step"><span>1</span> Paste or upload</div>
+            <div class="flow-step"><span>2</span> Analyze</div>
+            <div class="flow-step"><span>3</span> Review report</div>
+            <div class="flow-step"><span>4</span> Natural rewrite</div>
+            <div class="flow-step"><span>5</span> See what changed</div>
+            <div class="flow-step"><span>6</span> Download</div>
+          </div>
+        </div>
+
+        <div class="stat-grid" id="statGrid"></div>
+
+        <div class="quick-card card">
+          <div class="card-head">
+            <h3>Analyze content</h3>
+            <p>Paste your text below, or drop a document to get started.</p>
+          </div>
+          <label class="sr-only" for="quickText">Content to analyze</label>
+          <textarea id="quickText" class="editor" rows="7" placeholder="Paste your text here…"></textarea>
+          <div class="dropzone" id="quickDrop" tabindex="0" role="button"
+               aria-label="Drop a document here or press Enter to browse">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4"/><path d="m7 9 5-5 5 5"/><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+            <p><strong>Drop PDF / DOCX / XLSX / CSV / TXT</strong></p>
+            <p class="muted" id="quickDropHint">or click to browse</p>
+            <input type="file" id="quickFile" class="sr-only" accept=".pdf,.docx,.csv,.xlsx,.xlsm,.txt,.md">
+          </div>
+          <div class="quick-actions">
+            <button class="btn btn-primary" id="quickAnalyze" type="button">Analyze Content</button>
+            <button class="btn btn-ghost" id="quickRewrite" type="button">Create Natural Rewrite</button>
+          </div>
+        </div>
+
+        <section class="card" aria-labelledby="recentHead">
+          <div class="card-head">
+            <h3 id="recentHead">Recent analysis</h3>
+            <p>Results from this browser session only.</p>
+          </div>
+          <div id="recentList"></div>
+        </section>
+      </section>
+
+      <!-- ---------------------- TEXT ANALYZER ---------------------- -->
+      <section class="page" id="page-analyzer" hidden>
+        <div class="split">
+          <div class="card pane">
+            <div class="card-head">
+              <h3>Original content</h3>
+              <p id="analyzerCount">0 words</p>
+            </div>
+            <label class="sr-only" for="analyzerInput">Original content</label>
+            <textarea id="analyzerInput" class="editor editor-tall" placeholder="Paste text here…"></textarea>
+            <div class="pane-actions">
+              <button class="btn btn-primary" id="analyzerRun" type="button">Analyze Content</button>
+              <button class="btn btn-ghost" id="analyzerRewrite" type="button">Create Natural Rewrite</button>
+              <button class="btn btn-quiet" id="analyzerClear" type="button">Clear</button>
+            </div>
+          </div>
+          <div class="card pane">
+            <div class="card-head">
+              <h3>Analysis</h3>
+              <p>Linguistic indicators, not proof of authorship.</p>
+            </div>
+            <div id="analyzerResult"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------------------- DOCUMENTS ---------------------- -->
+      <section class="page" id="page-documents" hidden>
+        <div class="card">
+          <div class="card-head">
+            <h3>Upload a document</h3>
+            <p id="uploadLimits">Checking supported formats…</p>
+          </div>
+          <div class="dropzone dropzone-lg" id="docDrop" tabindex="0" role="button"
+               aria-label="Drop a document here or press Enter to browse">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4"/><path d="m7 9 5-5 5 5"/><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+            <p><strong>Drag &amp; drop your file here</strong></p>
+            <p class="muted">or click to browse</p>
+            <input type="file" id="docFile" class="sr-only" accept=".pdf,.docx,.csv,.xlsx,.xlsm,.txt,.md">
+          </div>
+          <ul class="format-list" aria-label="Supported formats">
+            <li><span class="fmt fmt-pdf">PDF</span> Text extraction, page order preserved</li>
+            <li><span class="fmt fmt-docx">DOCX</span> Headings, paragraphs and tables</li>
+            <li><span class="fmt fmt-xlsx">XLSX</span> Text cells only, formulas untouched</li>
+            <li><span class="fmt fmt-csv">CSV</span> Text columns only, IDs and dates untouched</li>
+            <li><span class="fmt fmt-txt">TXT</span> Plain text and Markdown</li>
+          </ul>
+        </div>
+        <div id="docResult"></div>
+      </section>
+
+      <!-- ---------------------- NATURAL REWRITE ---------------------- -->
+      <section class="page" id="page-rewrite" hidden>
+        <div class="card">
+          <div class="card-head">
+            <h3>Natural rewrite</h3>
+            <p>Improve clarity and natural flow while preserving meaning, facts,
+               names, numbers, dates and citations.</p>
+          </div>
+          <label class="sr-only" for="rewriteInput">Content to rewrite</label>
+          <textarea id="rewriteInput" class="editor" rows="6" placeholder="Paste text here, or send content from the Text Analyzer…"></textarea>
+          <div class="pane-actions">
+            <button class="btn btn-primary" id="rewriteRun" type="button">Create Natural Rewrite</button>
+            <button class="btn btn-quiet" id="rewriteClear" type="button">Clear</button>
+          </div>
+        </div>
+        <div id="rewriteResult"></div>
+      </section>
+
+      <!-- ---------------------- REPORTS ---------------------- -->
+      <section class="page" id="page-reports" hidden>
+        <div class="card">
+          <div class="card-head">
+            <h3>Session reports</h3>
+            <p>Generated files from this session. Nothing is stored in a database —
+               closing the server clears these links.</p>
+          </div>
+          <div id="reportsList"></div>
+        </div>
+      </section>
+
+      <!-- ---------------------- HISTORY ---------------------- -->
+      <section class="page" id="page-history" hidden>
+        <div class="card">
+          <div class="card-head">
+            <h3>Session history</h3>
+            <p>Kept in this browser tab only. Refreshing the page keeps it;
+               closing the tab clears it.</p>
+          </div>
+          <div id="historyList"></div>
+          <div class="pane-actions">
+            <button class="btn btn-quiet" id="clearHistory" type="button">Clear session history</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------------------- SETTINGS ---------------------- -->
+      <section class="page" id="page-settings" hidden>
+        <div class="card">
+          <div class="card-head">
+            <h3>Engine status</h3>
+            <p>Read from the Python backend. The API key itself is never sent to the browser.</p>
+          </div>
+          <dl class="kv" id="settingsInfo"></dl>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <h3>Preferences</h3>
+            <p>Stored in this browser tab only.</p>
+          </div>
+          <div class="pref-row">
+            <div>
+              <strong>Default download formats</strong>
+              <p class="muted">Used by the Download all button.</p>
+            </div>
+            <div class="checks" id="formatPrefs">
+              <label><input type="checkbox" value="txt" checked> TXT</label>
+              <label><input type="checkbox" value="json" checked> JSON</label>
+              <label><input type="checkbox" value="html" checked> HTML</label>
+              <label><input type="checkbox" value="pdf"> PDF</label>
+            </div>
+          </div>
+          <div class="pref-row">
+            <div>
+              <strong>Include analysis with every rewrite</strong>
+              <p class="muted">Turning this off makes rewrites faster.</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="prefAnalysis" checked>
+              <span class="slider" aria-hidden="true"></span>
+              <span class="sr-only">Include analysis with rewrites</span>
+            </label>
+          </div>
+          <div class="pane-actions">
+            <button class="btn btn-quiet" id="clearSession" type="button">Clear current session</button>
+          </div>
+        </div>
+
+        <div class="card notice">
+          <h3>About these results</h3>
+          <p id="limitationText">No AI-detection method can reliably determine whether a human or a
+             model wrote a text — including this one. Results are linguistic and statistical
+             indicators, never proof of authorship, and no accuracy percentage is claimed.
+             Rewriting is for clarity and readability; it is not a guarantee against any
+             external detector.</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<div class="toasts" id="toasts" role="status" aria-live="polite"></div>
+
+<div class="modal" id="modal" hidden>
+  <div class="modal-scrim" data-close></div>
+  <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-head">
+      <h3 id="modalTitle">Details</h3>
+      <button class="icon-btn" type="button" data-close aria-label="Close">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/downloads.js"></script>
+<script src="js/analyzer.js"></script>
+<script src="js/rewriter.js"></script>
+<script src="js/uploader.js"></script>
+<script src="js/reports.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
+// ===============================
+// DETAILS MODAL
+// ===============================
+
+function openDetails(details = {}) {
+    const modal = document.getElementById("modal");
+    const modalBody = document.getElementById("modalBody");
+    const modalTitle = document.getElementById("modalTitle");
+
+    if (!modal || !modalBody) {
+        console.error("Details modal elements were not found.");
+        return;
+    }
+
+    modalTitle.textContent = details.title || "Details";
+
+    modalBody.innerHTML = `
+        <div class="details-content">
+
+            <div class="details-section">
+                <h4>Analysis</h4>
+                <p>
+                    ${details.analysis || "No analysis information available."}
+                </p>
+            </div>
+
+            <div class="details-section">
+                <h4>Score</h4>
+                <p>
+                    ${details.score ?? "N/A"}
+                </p>
+            </div>
+
+            <div class="details-section">
+                <h4>Status</h4>
+                <p>
+                    ${details.status || "N/A"}
+                </p>
+            </div>
+
+        </div>
+    `;
+
+    modal.hidden = false;
+    document.body.classList.add("modal-open");
+}
+
+
+// Close modal
+function closeDetails() {
+    const modal = document.getElementById("modal");
+
+    if (modal) {
+        modal.hidden = true;
+        document.body.classList.remove("modal-open");
+    }
+}
+
+
+// Close when clicking X or background
+document.addEventListener("click", function (event) {
+
+    const closeButton = event.target.closest("[data-close]");
+
+    if (closeButton) {
+        closeDetails();
+    }
+
+});
+
+
+// Close with Escape key
+document.addEventListener("keydown", function (event) {
+
+    if (event.key === "Escape") {
+        closeDetails();
+    }
+
+});

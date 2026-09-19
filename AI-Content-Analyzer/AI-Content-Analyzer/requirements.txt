@@ -1,0 +1,13 @@
+# AI Content Analyzer & Natural Rewriter
+# Python 3.10 or newer.
+
+python-dotenv>=1.0.0     # loads .env configuration
+requests>=2.31.0         # HTTP calls to the model provider
+PyMuPDF>=1.24.0          # PDF reading and simple PDF writing (imported as fitz)
+python-docx>=1.1.0       # .docx reading and writing
+pandas>=2.0.0            # CSV handling
+openpyxl>=3.1.0          # .xlsx reading and writing
+
+# Phase 2 - the dashboard HTTP layer (server.py only; the engine itself
+# does not depend on Flask and still runs standalone through app.py)
+Flask>=3.0.0
